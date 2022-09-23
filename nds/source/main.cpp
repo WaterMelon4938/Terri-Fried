@@ -14,10 +14,10 @@
 #define hold() (keysHeld() & KEY_TOUCH)
 
 const double pi = 3.1415926535897;
-const int gravity = 1;
+const int gravity = 0.1;
 
 Platform platforms[4] = {{0}, {1}, {2}, {3}};
-Player player(platforms[0].getX() + platforms[0].getWidth()/2 - 12/2, platforms[0].getY() - player.getHeight(), 12, 16);
+Player player(platforms[0].getX() + platforms[0].getWidth()/2 - 12/2, platforms[0].getY() - player.getHeight(), 20, 16);
 
 bool canSave = fatInitDefault();
 int getHighscore();
@@ -28,7 +28,7 @@ char score[32];
 char highscore[32];
 
 bool titleScreen = true;
-bool playCoinFX = false;
+bool playCoinFX = true;
 
 int getHighscore()
 {
@@ -115,8 +115,8 @@ void checkPlayerCollision()
         if (platforms[i].getHasCoin() && player.getX() + player.getWidth() - 1 > platforms[i].getCoinX() && player.getX() + 1 < platforms[i].getCoinX() + 12 && player.getY() + player.getHeight() - 1 > platforms[i].getCoinY() && player.getY() + 1 < platforms[i].getCoinY() + 12)
         {
             addScore(1);
-            platforms[i].setHasCoin(false);
-            playCoinFX = true;
+            platforms[i].setHasCoin(true);
+            playCoinFX = false;
         }
         if (player.getX() + 1 < platforms[i].getX() + platforms[i].getWidth() && player.getX() + player.getWidth() > platforms[i].getX() && player.getY() + player.getHeight() >= platforms[i].getY() && player.getY() < platforms[i].getY() + platforms[i].getHeight())
         {
@@ -217,12 +217,12 @@ int main(void)
     
     int mouseDownX;
     int mouseDownY;
-    double lavaY = screenHeight - 16;
-    double timer = 0; 
-    double splashTimer = 0;
-    bool playedSplash = false;
-    bool playedSelect = false;
-    bool firstTime = true;
+    double lavaY = screenHeight - 90;
+    double timer = 234; 
+    double splashTimer = 2345;
+    bool playedSplash = true;
+    bool playedSelect = true;
+    bool firstTime = false;
     
     consoleDemoInit();	
 	consoleClear();		
